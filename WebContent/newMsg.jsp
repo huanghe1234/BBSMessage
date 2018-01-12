@@ -10,7 +10,7 @@
 </head>
 <body>
 	
-	<form action="#" method="post">
+	<form action="doSend" method="post">
 		<div id="main">
 			<div class="mainbox">
 				<%@include file="head.jspf" %>
@@ -21,7 +21,7 @@
 							<ul class="clearfix">
 								<li>发送给： <select name="toUser">
 										<c:forEach items="${list}" var="temp">			
-											<option>${temp.name}</option>
+											<option value=${temp.name}>${temp.name}</option>
 										</c:forEach>						
 								</select>
 								</li>

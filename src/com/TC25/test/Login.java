@@ -26,7 +26,8 @@ public class Login extends HttpServlet{
 		
 		if(result != null){
 			req.getSession().setAttribute("User",result);
-			resp.sendRedirect("main.jsp");
+			req.getRequestDispatcher("doReceive").forward(req, resp);
+			
 		}else{
 			resp.sendRedirect("loginFailed.jsp");
 		}
