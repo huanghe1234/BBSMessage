@@ -25,10 +25,11 @@ public class Register extends HttpServlet{
 		//2.将数据封装为对象
 		User u = new User(name,pwd,email);
 		//3.进入逻辑层,对数据进行判断
-		IUserBiz iub = new UserBizImpl();
-		int result = iub.addUser(u);
 		//4.对从逻辑层返回的结果进行判断
-		if(pwd==affirm){
+		
+		if(pwd.equals(affirm)){
+			IUserBiz iub = new UserBizImpl();
+			int result = iub.addUser(u);
 			if(result == 1){
 				resp.sendRedirect("index.jsp");
 				resp.getWriter().write("可以注册");
@@ -38,7 +39,7 @@ public class Register extends HttpServlet{
 		}else{
 			resp.getWriter().write("两次输入的密码不一致");
 		}
-		System.out.println(result==1?"注册成功":"注册失败");
+		//System.out.println(result==1?"注册成功":"注册失败");
 		
 		
 	}

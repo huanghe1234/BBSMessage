@@ -12,7 +12,7 @@
 	<div id="regTitle" class="png"></div>
 	<div id="regForm" class="userForm png">
 
-		<form action="doRegister">
+		<form action="doRegister" method="post">
 			<dl>
 				<!--错误信息  -->
 				<div id="error"></div>

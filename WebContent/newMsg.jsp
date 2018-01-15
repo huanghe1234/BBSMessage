@@ -7,6 +7,7 @@
 <head>
 <title>海文 在线短信平台</title>
 <link type="text/css" rel="stylesheet" href="css/sms.css" />
+<script type="text/javascript" src="scripts/jquery.js"></script>
 </head>
 <body>
 	
@@ -31,7 +32,7 @@
 						<div class="view">
 							<textarea name="content" id="content"></textarea>
 							<div class="send">
-								<input type="submit" name="submit" value=" " />
+								<input type="button" name="submit" value=" " onclick="mySend()"/>
 							</div>
 						</div>
 
@@ -40,5 +41,30 @@
 			</div>
 		</div>
 	</form>
+	<script type="text/javascript">
+	
+		function mySend(){
+		
+			$.ajax({
+				type:"post",
+				url:"doSend",
+				data:$("form").serialize(),
+				async:false,
+				dataType:"text",
+				success:function(msg){
+					if(msg=="error"){
+						alert("发送失败!");			
+					}else if(msg=="ok"){
+						alert("恭喜您,发送成功")	
+						$("form")[0].reset();
+					}
+				},
+				error:function(){
+					alert("发送失败!")	
+				}
+			})
+		}
+	</script>
+	
 </body>
 </html>

@@ -17,13 +17,13 @@
 				<div class="message">
 					<div class="tmenu">
 						<ul class="clearfix">
-							<li>题目：</li>
-							<li>来自：</li>
-							<li>时间</li>
+							<li>题目：${msg.title}</li>
+							<li>来自：${msg.fromUser}</li>
+							<li>时间:${msg.msgDate}</li>
 						</ul>
 					</div>
 					<div class="view">
-						<p>短消息内容</p>
+						<p>${msg.content}</p>
 					</div>
 				</div>
 			</div>

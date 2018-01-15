@@ -37,4 +37,34 @@ public class MsgBizImpl implements IMsgBiz {
 		return result;
 	}
 
+	@Override
+	public Msg checkMsg(int id) {
+		IMsgDao imd = new MsgDaoImpl();
+		Msg result = null;
+		try {
+			//1.根据id查询Msg详情内容
+			result = imd.checkMsgById(id);
+			//2.根据id修改Msg的状态,如果未读的修改为已读
+			if("未读".equals(result.getState())){
+				imd.updateMsg(id,"已读");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteMsg(int id) {
+		IMsgDao imd = new MsgDaoImpl();
+		int result = -1;
+		try {
+			result = imd.deleteMsgById(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

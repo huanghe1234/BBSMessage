@@ -17,7 +17,7 @@ public class CheckNameServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IUserBiz iub = new UserBizImpl();
 		String name = request.getParameter("name");
-		if(name==""){
+		if("".equals(name)){
 			response.getWriter().write("用户为空");
 			
 		}else{

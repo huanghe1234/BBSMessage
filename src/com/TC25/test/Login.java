@@ -17,8 +17,8 @@ public class Login extends HttpServlet{
 		IUserBiz iub = new UserBizImpl();
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=utf-8");
-		String name = req.getParameter("username");
-		String pwd = req.getParameter("password");
+		String name = req.getParameter("name");
+		String pwd = req.getParameter("pwd");
 		//封装为对象进行数据传输
 		User u = new User(name,pwd);
 		//传入逻辑层进行判断,并得到User对象
@@ -26,14 +26,21 @@ public class Login extends HttpServlet{
 		
 		if(result != null){
 			req.getSession().setAttribute("User",result);
-			req.getRequestDispatcher("doReceive").forward(req, resp);
+			//req.getRequestDispatcher("doReceive").forward(req, resp);
+			resp.getWriter().write("ok");
 			
 		}else{
-			resp.sendRedirect("loginFailed.jsp");
+			resp.getWriter().write("error");
+			//resp.sendRedirect("loginFailed.jsp");
 		}
 			
 		System.out.println(result !=null ?"登陆成功":"登陆失败");
 		
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
 	}
 }

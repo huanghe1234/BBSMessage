@@ -1,6 +1,9 @@
 package com.TC25.test;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,19 +28,19 @@ public class SendServlet extends HttpServlet {
 		String fromUser = u.getName(); //当前的用户的名称
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		//System.out.println(toUser);
-		//System.out.println(fromUser);
-		//System.out.println(title);
-		//System.out.println(content);
+
+		String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		//封装成对象进行数据传输
-		Msg m = new Msg(toUser, fromUser, title, content);
+		Msg m = new Msg(toUser, fromUser, title, content,date);
 		IMsgBiz imb = new MsgBizImpl();
 		int result = imb.addMsg(m);
 		if(result==1){
 			System.out.println("信息添加成功");
-			response.sendRedirect("main.jsp");
-			//request.getRequestDispatcher("doSendMsg").forward(request, response);
+			//response.sendRedirect("main.jsp");
+			response.getWriter().write("ok");
+			//request.getRequestDispatcher("sendSuccess.jsp").include(request, response);
 		}else{
+			response.getWriter().write("error");
 			System.out.println("数据添加失败");
 		}
 	
