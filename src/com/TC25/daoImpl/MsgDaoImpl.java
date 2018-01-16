@@ -1,5 +1,8 @@
 package com.TC25.daoImpl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,12 +27,13 @@ public class MsgDaoImpl implements IMsgDao {
 	}
 
 	@Override
-	public List<Msg> queryMsg(String name) throws SQLException {
+	public List<Msg> queryMsg(String name, int start, int end) throws SQLException {
 		//1获取数据库操作对象run
 		QueryRunner run = JDBCUtils.getQueryRunner();
 		//2.执行
-		String sql = "SELECT ID,TOUSER,FROMUSER,TITLE,CONTENT,STATE,MSGDATE FROM T_MSG WHERE TOUSER = ? ";
-		List<Msg> result = run.query(sql, new BeanListHandler<>(Msg.class),name);		
+		String sql = "SELECT * FROM (SELECT ROWNUM R,T_MSG.* FROM T_MSG WHERE TOUSER =?) T WHERE T.R>? AND T.R<=? ";
+		List<Msg> result = run.query(sql, new BeanListHandler<>(Msg.class),name,start,end);		
+
 		return result;
 	}
 
@@ -64,7 +68,24 @@ public class MsgDaoImpl implements IMsgDao {
 		return update;
 	}
 
+	@Override
+	public int queryCount(String name) throws SQLException {
+		int count = -1;
+		Connection conn = JDBCUtils.getConnection();
+		String sql = "SELECT COUNT(ID) FROM T_MSG WHERE TOUSER = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setObject(1, name);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()){
+			count = rs.getInt(1);
+		}
+		rs.close();
+		ps.close();
+		conn.close();	
+		return count;
+	}
+
 	
-	
+
 
 }

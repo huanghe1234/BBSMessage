@@ -15,9 +15,11 @@ public interface IMsgDao {
 	/**
 	 * 查询数据库用户收到信息的方法
 	 * @param name 收到信息的名字
+	 * @param end 
+	 * @param start 
 	 * @return 成功返回信息集合 失败返回null
 	 */
-	List<Msg> queryMsg(String name)throws SQLException;
+	List<Msg> queryMsg(String name, int start, int end)throws SQLException;
 	/**
 	 * 根据id查询数据的方法
 	 * @param id 
@@ -36,5 +38,11 @@ public interface IMsgDao {
 	 * @return 成功返回1  其他失败
 	 */
 	int deleteMsgById(int id) throws SQLException;
+	/**
+	 * 查询当前用户的信息记录总数
+	 * @param name 
+	 * @return 1成功 0失败
+	 */
+	int queryCount(String name) throws SQLException;
 
 }

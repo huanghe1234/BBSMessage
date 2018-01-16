@@ -29,7 +29,19 @@
 							<em><a href="javascript:myDelete(${temp.id})" style="color:#ff0000" >删除邮件</a></em>
 						</li>
 					</c:forEach>
-				</ul>			
+				</ul>
+				<div class="page-spliter">
+					<a href="doReceive?page=${pager.prevPage}">上一页</a>
+						<c:forEach items="${pager.groupList}" var="i">
+							<c:if test="${i==pager.currentPage}">
+								${i}
+							</c:if>
+							<c:if test="${i!=pager.currentPage}">
+								<a href="doReceive?page=${i}">${i}</a>
+							</c:if>
+						</c:forEach>
+					<a href="doReceive?page=${pager.nextPage}">下一页</a>						
+				</div>
 			</div>
 		</div>
 	</div>
